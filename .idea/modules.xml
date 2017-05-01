@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dvd Store.iml" filepath="$PROJECT_DIR$/.idea/modules/Dvd Store.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dvd_Store_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Dvd_Store_main.iml" group="Dvd Store" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Dvd_Store_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Dvd_Store_test.iml" group="Dvd Store" />
+    </modules>
+  </component>
+</project>

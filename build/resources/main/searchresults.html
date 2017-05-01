@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+
+    <title>Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <link rel="stylesheet" th:href="@{/theme/bootstrap.css}" media="screen"></link>
+    <link rel="stylesheet" th:href="@{/theme/usebootstrap.css}"></link>
+    <link th:href="@{/jumbotron-narrow.css}" rel="stylesheet"></link>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/bootstrap/html5shiv.js}"></script>
+    <script th:src="@{/bootstrap/respond.min.js}"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">DVDSTORE</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form  th:action="@{/searchProducts}" method="get" class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input name="searchterm" type="text" class="form-control" placeholder="Search"></input>
+                </div>
+                <input type="submit" name="submit" value="search"/>
+            </form>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                <li><a href="/cart">Cart</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                <li><a href="/cart">Cart</a></li>
+                <li><a href="/myAccount">My Account (<span sec:authentication="name"></span>)</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="flash" th:if="${flash != null}">
+    <div class="alert alert-dismissible alert-success" th:if="${#strings.toString(flash.status)} == 'SUCCESS'">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong th:text="${flash.message}"></strong>
+    </div>
+    <div class="alert alert-dismissible alert-danger" th:if="${#strings.toString(flash.status)} == 'FAILURE'">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong th:text="${flash.message}"></strong>
+    </div>
+</div>
+<h1>Search results</h1>
+<div class="row">
+    <div th:each="product : ${searchResults}">
+        <div class="product-row">
+            <div class="card-content">
+                <div class="card-title">
+                    <img th:src="@{|/images/${product.id}.jpg|}" alt="productimage"  width="30" height="50"  />
+
+                    <a class="title" th:href="@{|/product/${product.id}|}" th:text="${product.title}">Category Name</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+</body>
+</html>

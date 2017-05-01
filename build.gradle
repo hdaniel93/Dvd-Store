@@ -1,0 +1,44 @@
+group 'com.haughon.daniel'
+version '1.0-SNAPSHOT'
+
+
+
+buildscript {
+    repositories{
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE'
+    }
+}
+
+// Apply the Spring Boot plugin
+apply plugin: 'spring-boot'
+
+// Apply the Java plugin (expects src/main/java to be source folder)
+apply plugin: 'java'
+apply plugin: 'idea'
+
+// Specify the location where our dependencies will be found
+repositories {
+    mavenCentral()
+}
+
+// Specify dependencies
+dependencies {
+
+    compile 'org.hashids:hashids:1.0.1'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.springframework:spring-orm:4.3.7.RELEASE'
+    compile 'org.hibernate:hibernate-core:5.2.9.Final'
+    compile 'org.hibernate:hibernate-entitymanager:5.0.6.Final'
+    compile 'org.apache.tomcat:tomcat-dbcp:8.0.30'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+   compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+//compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity:3.0.2.RELEASE'
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.11.1.RELEASE'
+    runtime 'com.h2database:h2'
+    runtime 'javax.transaction:jta:1.1'
+    runtime 'org.aspectj:aspectjweaver:1.8.7'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
