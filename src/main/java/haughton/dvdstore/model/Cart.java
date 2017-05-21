@@ -40,6 +40,17 @@ public class Cart {
         return new FlashMessage("Item added to cart", FlashMessage.Status.SUCCESS);
     }
 
+    public FlashMessage removeCartLine(long productId){
+        for(int i = 0;i<lines.size();i++){
+            if(lines.get(i).getProduct().getId() == productId){
+            lines.remove(i);
+                return new FlashMessage(lines.get(i).getProduct().getTitle() + " removed", FlashMessage.Status.SUCCESS);
+            }
+        }
+        //if we get here,the productId isnt in the incart the
+        return new FlashMessage("An error occured", FlashMessage.Status.FAILURE);
+    }
+
     public FlashMessage increaseQuantity(Product product,int quantity,int pos){
         if(quantity +lines.get(pos).getQuantity()>product.getQuantityInStock()){
             //if user tries to add more than we have in stock
@@ -48,6 +59,44 @@ public class Cart {
 
         lines.get(pos).setQuantity(quantity +lines.get(pos).getQuantity());//add to the quantity already in cart
         return new FlashMessage("Item added to cart", FlashMessage.Status.SUCCESS);
+    }
+    //decreases quantity of given product by one
+    public FlashMessage  decreaseQuantityOfOneCartLine(long productId){
+        for(int i = 0;i<lines.size();i++){
+            if(lines.get(i).getProduct().getId() == productId){
+                if(lines.get(i).getQuantity()==1){
+                    //if the item only has a quantity of one in the cart,remove it
+                    //save title to display in flash message
+                    String title = lines.get(i).getProduct().getTitle();
+                    lines.remove(i);
+                    return new FlashMessage(title +" removed", FlashMessage.Status.SUCCESS);
+                }
+                //decrease quantity by one
+                lines.get(i).setQuantity(lines.get(i).getQuantity() -1);
+                return new FlashMessage("Cart Updated", FlashMessage.Status.SUCCESS);
+
+            }
+        }
+        return new FlashMessage("An error occured", FlashMessage.Status.FAILURE);
+        //if we get here product supplied isnt in cart
+
+    }
+
+    public FlashMessage  increaseQuantityOfOneCartLine(long productId){
+        for(int i = 0;i<lines.size();i++){
+            if(lines.get(i).getProduct().getId() == productId){
+                if(1 +lines.get(i).getQuantity()> lines.get(i).getProduct().getQuantityInStock()){
+                    //if user tries to add more than we have in stock
+                    return new FlashMessage("Sorry we dont have enough in stock", FlashMessage.Status.FAILURE);
+                }
+                //increase quantity by one
+                lines.get(i).setQuantity(lines.get(i).getQuantity() +1);
+                return new FlashMessage("Cart Updated", FlashMessage.Status.SUCCESS);
+            }
+        }
+        return new FlashMessage("An error occured", FlashMessage.Status.FAILURE);
+        //if we get here product supplied isnt in cart
+
     }
 
     public List<CartLine> getLines() {

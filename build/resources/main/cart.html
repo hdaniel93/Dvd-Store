@@ -64,14 +64,43 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Total Price</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="cartLine : ${cartLines}">
-            <td th:text="${cartLine.product.title}">product name</td>
-            <td th:text="${cartLine.quantity}">quantity</td>
+            <td>
+            <a  th:href="@{|/product/${cartLine.product.id}|}" th:text="${cartLine.product.title}"></a>
+            </td>
+            <td class="qtyWidth">
+                <table>
+                    <tr>
+                        <td>
+                            <form th:action="@{|/cart/decrease/${cartLine.product.id}|}" method="post">
+                                <input type="submit" class="btn btn-primary" id="decreaseCartLine" value="-" />
+                            </form>
+                        </td>
+                        <td>
+                            <span class="qtyNumber" th:text="${cartLine.quantity}">11</span>
+                        </td>
+                        <td>
+                            <form th:action="@{|/cart/increase/${cartLine.product.id}|}" method="post">
+                                <input type="submit" class="btn btn-primary" id="increaseCartLine" value="+" />
+                            </form>
+                        </td>
+                    </tr>
+
+
+                </table>
+            </td>
             <td th:text="${cartLine.product.price}">price</td>
             <td th:text="${cartLine.totalPrice}">total price</td>
+
+
+            <td><form th:action="@{|/cart/remove/${cartLine.product.id}|}"  method="post">
+                <input type="submit" class="btn btn-primary"  id="removeCartLine"  value="Remove Item"/>
+            </form>
+            </td>
         </tr>
         </tbody>
     </table>

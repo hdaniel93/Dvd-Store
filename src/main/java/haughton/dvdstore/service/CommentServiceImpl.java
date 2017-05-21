@@ -18,8 +18,8 @@ private CommentDao commentDao;
     public List<Comment> allCommentsByProductId(Long id) {
         return commentDao.allCommentsByProductId(id);
     }
-    public void addComment(Long userId,Long productId,String text){
-    commentDao.addComment(userId,productId,text);
+    public int addComment(Long userId,Long productId,String text){
+    return commentDao.addComment(userId,productId,text);
     }
 
 

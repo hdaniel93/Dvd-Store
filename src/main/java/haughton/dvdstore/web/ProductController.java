@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,9 +33,12 @@ private CommentService commentService;
         long long1 = 1;
         long long2 = 2;
         long long4 = 4;
-       model.addAttribute("product1",productService.findById(long1));
-        model.addAttribute("product2",productService.findById(long2));
-        model.addAttribute("product3",productService.findById(long4));
+        List<Product> products = new ArrayList();
+
+       products.add(productService.findById(long1));
+        products.add(productService.findById(long2));
+        products.add(productService.findById(long4));
+        model.addAttribute("productsForSlideShow",products);
         return "index";
     }
 

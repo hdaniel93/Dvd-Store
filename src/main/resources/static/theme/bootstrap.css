@@ -12,7 +12,15 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
-
+.form-control {
+  height: auto;
+}
+.qtyWidth {
+  width: 150px;
+}
+.qtyNumber {
+ margin: 0 5px;
+}
 body {
   margin: 0;
 }

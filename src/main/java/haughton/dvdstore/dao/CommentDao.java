@@ -16,8 +16,8 @@ import java.util.List;
  */
 @Repository
 public interface CommentDao extends CrudRepository<Comment,Long> {
-    @Query("select c from Comment c where c.product.id = :id")
+    @Query("select c from Comment c where c.product.id = :id order by c.id desc ")
     List<Comment> allCommentsByProductId(@Param("id") Long id);
     @Transactional @Modifying @Query (value="insert into comment (product_id,user_id,text) values (:productId,:userId,:text)",nativeQuery = true)
-    void addComment(@Param("userId") Long userId,@Param("productId")Long productId,@Param("text")String text);
+    int addComment(@Param("userId") Long userId,@Param("productId")Long productId,@Param("text")String text);
 }

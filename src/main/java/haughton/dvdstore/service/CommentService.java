@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface CommentService {
     List<Comment> allCommentsByProductId(Long id);
-    public void addComment(Long userId,Long productId,String text);
+    public int addComment(Long userId,Long productId,String text);
 }

@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/theme/bootstrap.css}" media="screen"></link>
     <link rel="stylesheet" th:href="@{/theme/usebootstrap.css}"></link>
     <link th:href="@{/jumbotron-narrow.css}" rel="stylesheet"></link>
+    <link th:href="@{/app.css}" rel="stylesheet"></link>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script th:src="@{/bootstrap/html5shiv.js}"></script>
@@ -58,15 +59,14 @@
     </div>
 </div>
 <h1>Search results</h1>
-<div class="row">
+
     <div th:each="product : ${searchResults}">
-        <div class="product-row">
+        <div class="row">
+        <div class="col-xs-12 col-md-3">
             <div class="card-content">
                 <div class="card-title">
                     <img th:src="@{|/images/${product.id}.jpg|}" alt="productimage"  width="30" height="50"  />
-
                     <a class="title" th:href="@{|/product/${product.id}|}" th:text="${product.title}">Category Name</a>
-
                 </div>
             </div>
         </div>

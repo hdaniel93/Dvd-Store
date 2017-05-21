@@ -7,11 +7,9 @@
     <link rel="stylesheet" th:href="@{/theme/bootstrap.css}" media="screen"></link>
     <link rel="stylesheet" th:href="@{/theme/usebootstrap.css}"></link>
     <link th:href="@{/jumbotron-narrow.css}" rel="stylesheet"></link>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script th:src="@{/bootstrap/html5shiv.js}"></script>
-    <script th:src="@{/bootstrap/respond.min.js}"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 </head>
 <body>
 <div class="container">
@@ -60,14 +58,31 @@
 <img th:src="@{|/images/${product.id}.jpg|}" alt="productimage"  width="300" height="500"  />
 <p th:text="${product.description}"></p>
 <p th:text="|${product.price} EURO |"></p>
-<form th:action="@{|/product/${product.id}/addToCart|}" method="post"><p>Enter quantity you would like to purchase :
+<form th:if="${product.quantityInStock} &gt; 0"  method="post">
+    <p>Enter quantity you would like to purchase :
     <input type="number" id="quantity" name="quantity" step="any" min="1" max="${product.quantityInStock}" value="1"></input>
 </p>
-    <input type="submit" class="btn btn-primary"  id ="button"  name="button" value="Add to cart"/>
+    <input type="submit" class="btn btn-primary"  id="addToCart"  name="button" value="Add to cart"/>
+    <input type="hidden" id="productId" th:value='${product.id}'/>
 </form>
+    <p th:if="${product.quantityInStock} &lt; 1" class="text-warning">Sorry we dont have any in stock</p>
+    <div sec:authorize="isAnonymous()">
+        <p>Please <a href="/login">login</a> to post a comment </p>
+    </div>
+    <div sec:authorize="isAuthenticated()">
 
+        <form  method="post">
+            <table>
+                <tr>
+                    <td> Write your comment here  : </td><td>
+                    <input name="text" id="text"  type="text"/>
+                    <input type="submit" name="submit" id="addComment"  value="Post comment"/> </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 <h1>Comments</h1>
-<div th:if="${comments} != null">
+<div th:if="${comments} != null" id="comments">
     <div th:each="comment : ${comments}" class="col s12 l4">
         <blockquote>
      <p th:text="${comment.text}">Comment </p>
@@ -76,24 +91,24 @@
     </div>
 </div>
 
-<div sec:authorize="isAuthenticated()">
-
-    <form th:action="@{|/product/${product.id}/addComment|}" method="post">
-        <table>
-            <tr>
-                <td> Write your comment here  : </td><td> <input name="text"  type="text"/>
-                <input type="submit" name="submit" value="Post comment"/> </td>
-            </tr>
-
-        </table>
 
 
-    </form>
-</div>
-<div sec:authorize="isAnonymous()">
-    <p>Please <a href="/login">login</a> to post a comment </p>
-</div>
 
 </div>
 </body>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script th:src="@{/vendor/app.js}"></script>
+<script
+        src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script th:src="@{/bootstrap/html5shiv.js}"></script>
+<script th:src="@{/bootstrap/respond.min.js}"></script>
+<![endif]-->
 </html>
